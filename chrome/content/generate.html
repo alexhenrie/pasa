@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Generate password</title>
+        <style id="styleblock" type="text/css"></style>
+    </head>
+    <body>
+        <form action="" method="get">
+            <div>Include:</div>
+            <div><input id="miniscule" name="miniscule" type="checkbox" checked="checked"/><label for="miniscule">Lowercase letters</label></div>
+            <div><input id="majiscule" name="majiscule" type="checkbox" checked="checked"/><label for="majiscule">Uppercase letters</label></div>
+            <div><input id="numbers" name="numbers" type="checkbox" checked="checked"/><label for="numbers">Numbers</label></div>
+            <div><input id="symbols" name="symbols" type="checkbox"/><label for="symbols">Symbols: </label><input id="oksymbols" name="oksymbols" type="text" value="-_."/></div>
+            <div>Length: <input id="length" name="length" type="number" value="10"/></div>
+            <div>Copy and paste:</div>
+            <div style="font-family:monospace; font-size:large; position:relative">
+                <div id="password" style="color:transparent; position:absolute"></div>
+                <div id="dots"></div>
+            </div>
+            <div><input type="submit" value="Generate another password"/></div>
+
+            <script type="application/javascript">//<![CDATA[
+                var useDefaults = location.href.indexOf("?") == -1;
+
+                var params = {};
+                function applyCheckboxParam(name)
+                {
+                    if (useDefaults)
+                    {
+                        params[name] = document.getElementById(name).hasAttribute("checked");
+                    }
+                    else
+                    {
+                        params[name] = location.href.indexOf(name + "=on") != -1;
+
+                        if (params[name])
+                            document.getElementById(name).setAttribute("checked", "checked");
+                        else
+                            document.getElementById(name).removeAttribute("checked");
+                    }
+                }
+                applyCheckboxParam("miniscule");
+                applyCheckboxParam("majiscule");
+                applyCheckboxParam("numbers");
+                applyCheckboxParam("symbols");
+
+                var charPool = "";
+                if (params["miniscule"])
+                    charPool += "abcdefghijklmnopqrstuvwxyz";
+                if (params["majiscule"])
+                    charPool += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+                if (params["numbers"])
+                    charPool += "0123456789";
+
+                if (!useDefaults && params["symbols"])
+                {
+                    charPool += decodeURIComponent((/oksymbols=([^&]+)/g.exec(location.href) || ["", ""])[1]);
+                }
+
+                var length = (/length=([^&]+)/g.exec(location.href) || ["", ""])[1];
+                if (length)
+                    document.getElementById("length").value = length;
+                length = document.getElementById("length").value;
+
+                var password = "";
+                for (var i = 0; i < length; i++)
+                {
+                    password += charPool[Math.floor(Math.random() * charPool.length)];
+                }
+                document.getElementById("styleblock").textContent = "#dots:after{content:'" + new Array(password.length + 1).join("●") + "'}";
+                document.getElementById("password").textContent = password;
+            //]]></script>
+    </body>
+</html>

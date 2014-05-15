@@ -1,0 +1,9 @@
+{
+  "name": "pasa",
+  "title": "Pasa password generator",
+  "id": "jid1-2BU3qgaApUKrsQ",
+  "description": "Adds a button to open a tab to generate secure passwords. The length of the generated password or the permissible characters (letters, numbers, symbols) can be changed to adapt to any web site's password requirements.",
+  "author": "Alex Henrie",
+  "license": "MPL 2.0",
+  "version": "0.1"
+}
