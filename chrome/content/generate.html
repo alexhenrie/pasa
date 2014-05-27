@@ -2,6 +2,7 @@
 
 <html>
     <head>
+        <meta charset="UTF-8"/>
         <title>Generate password</title>
         <style id="styleblock" type="text/css"></style>
     </head>
@@ -45,17 +46,23 @@
                 applyCheckboxParam("numbers");
                 applyCheckboxParam("symbols");
 
+                var minisculePool = "abcdefghijklmnopqrstuvwxyz";
+                var majisculePool = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+                var numberPool = "0123456789";
+                var symbolPool;
+
                 var charPool = "";
                 if (params["miniscule"])
-                    charPool += "abcdefghijklmnopqrstuvwxyz";
+                    charPool += minisculePool;
                 if (params["majiscule"])
-                    charPool += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+                    charPool += majisculePool;
                 if (params["numbers"])
-                    charPool += "0123456789";
+                    charPool += numberPool;
 
                 if (!useDefaults && params["symbols"])
                 {
-                    charPool += decodeURIComponent((/oksymbols=([^&]+)/g.exec(location.href) || ["", ""])[1]);
+                    symbolPool = decodeURIComponent((/oksymbols=([^&]+)/g.exec(location.href) || ["", ""])[1]);
+                    charPool += symbolPool;
                 }
 
                 var length = (/length=([^&]+)/g.exec(location.href) || ["", ""])[1];
@@ -63,11 +70,20 @@
                     document.getElementById("length").value = length;
                 length = document.getElementById("length").value;
 
-                var password = "";
-                for (var i = 0; i < length; i++)
+                var password;
+                do
                 {
-                    password += charPool[Math.floor(Math.random() * charPool.length)];
+                    password = "";
+                    for (var i = 0; i < length; i++)
+                    {
+                        password += charPool[Math.floor(Math.random() * charPool.length)];
+                    }
                 }
+                while ((params["miniscule"] && !(new RegExp("[" + minisculePool + "]", "g")).exec(password)) ||
+                       (params["majiscule"] && !(new RegExp("[" + majisculePool + "]", "g")).exec(password)) ||
+                       (params["numbers"] && !(new RegExp("[" + numberPool + "]", "g")).exec(password)) ||
+                       (params["symbols"] && !(new RegExp("[" + symbolPool + "]", "g")).exec(password)))
+
                 document.getElementById("styleblock").textContent = "#dots:after{content:'" + new Array(password.length + 1).join("●") + "'}";
                 document.getElementById("password").textContent = password;
             //]]></script>
