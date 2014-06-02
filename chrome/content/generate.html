@@ -14,7 +14,7 @@
             <div><input id="miniscule" name="miniscule" type="checkbox" checked="checked"/><label for="miniscule">Lowercase letters</label></div>
             <div><input id="majiscule" name="majiscule" type="checkbox" checked="checked"/><label for="majiscule">Uppercase letters</label></div>
             <div><input id="numbers" name="numbers" type="checkbox" checked="checked"/><label for="numbers">Numbers</label></div>
-            <div><input id="symbols" name="symbols" type="checkbox"/><label for="symbols">Symbols: </label><input id="oksymbols" name="oksymbols" type="text" value="-_."/></div>
+            <div><input id="symbols" name="symbols" type="checkbox"/><label for="symbols">Symbols: </label><input id="oksymbols" name="oksymbols" type="text" value="-_." oninput="document.getElementById('symbols').checked = true;"/></div>
             <div>Length: <input id="length" name="length" type="number" value="10"/></div>
             <div>Copy and paste:</div>
             <div style="font-family:monospace; font-size:large; position:relative">
@@ -31,16 +31,12 @@
                 {
                     if (useDefaults)
                     {
-                        params[name] = document.getElementById(name).hasAttribute("checked");
+                        params[name] = document.getElementById(name).checked;
                     }
                     else
                     {
                         params[name] = location.href.indexOf(name + "=on") != -1;
-
-                        if (params[name])
-                            document.getElementById(name).setAttribute("checked", "checked");
-                        else
-                            document.getElementById(name).removeAttribute("checked");
+                        document.getElementById(name).checked = params[name] ? true : false;
                     }
                 }
                 applyCheckboxParam("miniscule");
@@ -51,7 +47,7 @@
                 var minisculePool = "abcdefghijklmnopqrstuvwxyz";
                 var majisculePool = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
                 var numberPool = "0123456789";
-                var symbolPool;
+                var symbolPool = decodeURIComponent((/oksymbols=([^&]+)/g.exec(location.href) || ["", ""])[1]);
 
                 var charPool = "";
                 if (params["miniscule"])
@@ -60,11 +56,12 @@
                     charPool += majisculePool;
                 if (params["numbers"])
                     charPool += numberPool;
-
-                if (!useDefaults && params["symbols"])
-                {
-                    symbolPool = decodeURIComponent((/oksymbols=([^&]+)/g.exec(location.href) || ["", ""])[1]);
+                if (params["symbols"])
                     charPool += symbolPool;
+
+                if (symbolPool)
+                {
+                    document.getElementById("oksymbols").value = symbolPool;
                 }
 
                 var length = (/length=([^&]+)/g.exec(location.href) || ["", ""])[1];
@@ -84,7 +81,7 @@
                 while ((params["miniscule"] && !(new RegExp("[" + minisculePool + "]", "g")).exec(password)) ||
                        (params["majiscule"] && !(new RegExp("[" + majisculePool + "]", "g")).exec(password)) ||
                        (params["numbers"] && !(new RegExp("[" + numberPool + "]", "g")).exec(password)) ||
-                       (params["symbols"] && !(new RegExp("[" + symbolPool + "]", "g")).exec(password)))
+                       (params["symbols"] && symbolPool && !(new RegExp("[" + symbolPool.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1") + "]", "g")).exec(password)))
 
                 document.getElementById("styleblock").textContent = "#dots:after{content:'" + new Array(password.length + 1).join("●") + "'}";
                 document.getElementById("password").textContent = password;
