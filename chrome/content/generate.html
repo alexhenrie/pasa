@@ -7,9 +7,22 @@
         <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAADe0lEQVQ4y3WTSWwbZQBGv9/+ZzweT8dL9s2JUzubEychIUtJSEWSLqoitWrVQ2+ISuUCR6ReQYID6gEJFRDHwgEJRKOCWkyBlKhJm1SkLi1ZG2dz44knjuPdno1bJRC8+3v6Lh/B/1BQciaWcjYAvu+uvzdW5+/KpmObB29ceGcVEJYKWi7NUV4n/xYNwyAAXGuL90Z++urLk5FoYlDaCPscdheohVc9R5si7fXmX7vPvfmN1dE8849AOi2ZbLZyz/UP3n43tpO6OBW8XV59tNrkrPSCo0XIkW3wFgWKYlX7Aw0zlz/+/i36cnJGNoGi88ZHV67O3Jk+Q521POcoActVYP1xCJlUEk6XA+YyJ0RHKZ2+N994GaiiqqbAQBLU5HJfuzJ+NfQ8cVao9jJN/ccx/+O32FhdQaII+LuHoefTyKT2oBYlcI4KPi7PlVBqZmAYhm3qxvuXHq0kT8vSHlOu6th+eh8H+zGkWBG+Zg+Wny1A5K0wVANOq462MxO7rtK+bdPOzirR1cOOW8EHlzTNJPS8dhxNDXVYX5jHZiKD4ZERPHk0CxNnRU7T0NTTCU4oUZqaG34BsExrarz81198eCG8tObb3E0iFk+AEAWaxYnh0VfwYHoKFsEB0S6it28Ihf0oiMhoYIUIgDwFUBucvDMilLazqnQf8n4Ule5asAyLF9theJpbYWFYBAJt+P2H29BSMXSMnyraRGEPgE7DG0+rUslEdVfXIDjWgsr6Fjx5PIm8kkdfhxcHGQreasVc8BZKBQvYulZDJ1ju7h5YAKCbPA3tEmHMsfnZSRCiQBDziEej6GjxIr6+ivzWc+jyLjz2AjihaECwhcdOnPjEVeZeIoSAJnMH5lIqMzGhAit/PcQfD++irNyBSGgRunEIwaxCzktIcVVGWX1d5Nz589dGxyZuEkIKAEAPJAmNgTaEf14Dw1vgNiehFOPg7ByknB1WIQ+hokF1e/2h02cnPu19dfwmISSTLWTBW3hQXjwSLfEMzTX28L6YJDHFnAucWYecU1HfUq4Ts5Hw+jtnO4+NfuYPDN0lhBSKqgKWMgAAWuaqib8+fvLz3Rdb7qQsD1ALAXQl3T8QWBOrvFu9/T3Btq7B3+xHXDuEEBXASxkACADkiwqN7f7Zufhs6RhLKSpr67ebW/tCABKZbDZ5mNC0mhrxP2//N+KQa2lTiB55AAAAAElFTkSuQmCC"/>
         <title>Generate password</title>
         <style id="styleblock" type="text/css"></style>
+        <script type="application/javascript">
+            window.preferences = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefBranch);
+        </script>
     </head>
     <body>
         <form action="" method="get">
+            <script type="application/javascript">//<![CDATA
+                if (!preferences.getBoolPref("signon.rememberSignons"))
+                    document.write("<div id=\"remembersignons\">Firefox does not currently ask to remember passwords. <a href=\"javascript:preferences.setBoolPref('signon.rememberSignons', true); document.getElementById('remembersignons').parentNode.removeChild(document.getElementById('remembersignons')); undefined;\">Click here to fix that.</a></div>");
+                if (!preferences.prefHasUserValue("services.sync.account"))
+                    document.write("<div>Your passwords saved in Firefox are not currently backed up via Firefox Sync because you are not currently signed in to Firefox Sync. <a href=\"about:accounts\">Sign in to Firefox Sync</a> to back up your passwords automatically.");
+                if (preferences.prefHasUserValue("services.sync.engine.passwords"))
+                    document.write("<div id=\"syncsignons\">Your passwords saved in Firefox are not currently backed up via Firefox Sync because password sync is turned off. <a href=\"javascript:preferences.setBoolPref('services.sync.engine.passwords', true); document.getElementById('syncsignons').parentNode.removeChild(document.getElementById('syncsignons')); undefined;\">Click here to fix that.</a></div>");
+            //]]></script>
+
+            <h1>Generate password</h1>
             <div>Include:</div>
             <div><input id="miniscule" name="miniscule" type="checkbox" checked="checked"/><label for="miniscule">Lowercase letters</label></div>
             <div><input id="majiscule" name="majiscule" type="checkbox" checked="checked"/><label for="majiscule">Uppercase letters</label></div>
@@ -21,7 +34,9 @@
                 <div id="password" style="color:transparent; position:absolute"></div>
                 <div id="dots"></div>
             </div>
+            <div>After setting your password for a website, sign out and sign back in to make sure that Firefox saved the password. If it is not saved anywhere else then once you leave or refresh this page, this password will be gone for good.</div>
             <div><input type="submit" value="Generate another password"/></div>
+            <div>If you use the same username and password on two websites (for example, <a href="http://www.amazon.com/">amazon.com</a> and <a href="http://www.amazon.ca/">amazon.ca</a>), and you have saved your password in one website but not the other, you can get the password by right-clicking the website in Firefox's <a href="chrome://passwordmgr/content/passwordManager.xul">saved passwords</a> list and clicking "Copy password".</div>
 
             <script type="application/javascript">//<![CDATA[
                 var useDefaults = location.href.indexOf("?") == -1;
