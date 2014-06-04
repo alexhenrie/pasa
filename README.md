@@ -24,9 +24,9 @@ Build
 
 License
 =======
-This software may be used under the terms of the Mozilla Public License 2.0 or
-any later version published by Mozilla, the GNU General Public License 2.0 or
-any later version published by the Free Software Foundation, or the GNU Lesser
-General Public License 2.0 or any later version published by the Free Software
-Foundation. By making commits or pull requests to this repository, you agree to
-license your contributions likewise.
+Unless otherwise noted, this software may be used under the terms of the Mozilla
+Public License 2.0 or any later version published by Mozilla, the GNU General
+Public License 2.0 or any later version published by the Free Software
+Foundation, or the GNU Lesser General Public License 2.0 or any later version
+published by the Free Software Foundation. By making commits or pull requests to
+this repository, you agree to license your contributions likewise.
