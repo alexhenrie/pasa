@@ -24,7 +24,7 @@
     </style>
 
     <script type="application/javascript">
-    window.preferences = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefBranch);
+      window.preferences = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefBranch);
     </script>
   </head>
   <body class="container">
@@ -35,8 +35,7 @@
         document.write("<div>Your passwords saved in Firefox are not currently backed up via Firefox Sync because you are not currently signed in to Firefox Sync. <a href=\"about:accounts\">Sign in to Firefox Sync</a> to back up your passwords automatically.");
     if (preferences.prefHasUserValue("services.sync.engine.passwords"))
         document.write("<div id=\"syncsignons\">Your passwords saved in Firefox are not currently backed up via Firefox Sync because password sync is turned off. <a href=\"javascript:preferences.setBoolPref('services.sync.engine.passwords', true); document.getElementById('syncsignons').parentNode.removeChild(document.getElementById('syncsignons')); undefined;\">Click here to fix that.</a></div>");
-    //]]>
-    </script>
+    //]]></script>
 
     <h2>Copy and paste this new password:</h2>
 
