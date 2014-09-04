@@ -25,6 +25,7 @@
 
     <script type="application/javascript">
       window.preferences = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefBranch);
+      window.clipboard = Components.classes["@mozilla.org/widget/clipboardhelper;1"].getService(Components.interfaces.nsIClipboardHelper);
     </script>
   </head>
   <body class="container">
@@ -37,12 +38,14 @@
         document.write("<div id=\"syncsignons\">Your passwords saved in Firefox are not currently backed up via Firefox Sync because password sync is turned off. <a href=\"javascript:preferences.setBoolPref('services.sync.engine.passwords', true); document.getElementById('syncsignons').parentNode.removeChild(document.getElementById('syncsignons')); undefined;\">Click here to fix that.</a></div>");
     //]]></script>
 
-    <h2>Copy and paste this new password:</h2>
-
-    <div style="font-family:monospace; font-size:x-large; position:relative">
-      <div id="password" style="color:transparent; position:absolute; padding:0 2em 0.5em 2em"></div>
-      <div id="dots" style="padding:0 2em 0.5em 2em"></div>
-    </div>
+    <h2>
+      New random password:
+      <div style="display:inline-block; font-family:monospace; position:relative">
+        <div id="password" style="color:transparent; position:absolute; padding:0.5em 1em 0.5em 1em"></div>
+        <div id="dots" style="padding:0.5em 1em 0.5em 1em"></div>
+      </div>
+      <a class="btn btn-lg btn-primary" href="javascript:clipboard.copyString(document.getElementById('password').textContent)">Copy to clipboard</a>
+    </h2>
 
     <p>After setting your password for a website, sign out and sign back in to make sure that Firefox saved the password. If it is not saved anywhere else then once you leave or refresh this page, this password will be gone for good.</p>
 
