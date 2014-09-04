@@ -30,11 +30,11 @@
   </head>
   <body class="container">
     <script type="application/javascript">//<![CDATA
-    if (!preferences.getBoolPref("signon.rememberSignons"))
+      if (!preferences.getBoolPref("signon.rememberSignons"))
         document.write("<div class=\"alert alert-warning\" id=\"remembersignons\">Firefox does not currently ask to remember passwords. <a href=\"javascript:preferences.setBoolPref('signon.rememberSignons', true); document.getElementById('remembersignons').parentNode.removeChild(document.getElementById('remembersignons')); undefined;\">Click here to fix that.</a></div>");
-    if (!preferences.prefHasUserValue("services.sync.account"))
+      if (!preferences.prefHasUserValue("services.sync.account"))
         document.write("<div class=\"alert alert-warning\">Your passwords saved in Firefox are not currently backed up via Firefox Sync because you are not currently signed in to Firefox Sync. <a href=\"about:accounts\">Sign in to Firefox Sync</a> to back up your passwords automatically.</div>");
-    if (preferences.prefHasUserValue("services.sync.engine.passwords"))
+      if (preferences.prefHasUserValue("services.sync.engine.passwords"))
         document.write("<div class=\"alert alert-warning\" id=\"syncsignons\">Your passwords saved in Firefox are not currently backed up via Firefox Sync because password sync is turned off. <a href=\"javascript:preferences.setBoolPref('services.sync.engine.passwords', true); document.getElementById('syncsignons').parentNode.removeChild(document.getElementById('syncsignons')); undefined;\">Click here to fix that.</a></div>");
     //]]></script>
 
@@ -102,17 +102,13 @@
       var useDefaults = location.href.indexOf("?") == -1;
 
       var params = {};
-      function applyCheckboxParam(name)
-      {
-          if (useDefaults)
-          {
-              params[name] = document.getElementById(name).checked;
-          }
-          else
-          {
-              params[name] = location.href.indexOf(name + "=on") != -1;
-              document.getElementById(name).checked = params[name] ? true : false;
-          }
+      function applyCheckboxParam(name) {
+        if (useDefaults) {
+          params[name] = document.getElementById(name).checked;
+        } else {
+          params[name] = location.href.indexOf(name + "=on") != -1;
+          document.getElementById(name).checked = params[name] ? true : false;
+        }
       }
       applyCheckboxParam("miniscule");
       applyCheckboxParam("majiscule");
@@ -126,18 +122,16 @@
 
       var charPool = "";
       if (params["miniscule"])
-          charPool += minisculePool;
+        charPool += minisculePool;
       if (params["majiscule"])
-          charPool += majisculePool;
+        charPool += majisculePool;
       if (params["numbers"])
-          charPool += numberPool;
+        charPool += numberPool;
       if (params["symbols"])
-          charPool += symbolPool;
+        charPool += symbolPool;
 
       if (symbolPool)
-      {
-          document.getElementById("oksymbols").value = symbolPool;
-      }
+        document.getElementById("oksymbols").value = symbolPool;
 
       var length = (/length=([^&]+)/g.exec(location.href) || ["", ""])[1];
       if (length)
@@ -145,22 +139,17 @@
       length = document.getElementById("length").value;
 
       var password;
-      do
-      {
+      do {
           password = "";
           for (var i = 0; i < length; i++)
-          {
-              password += charPool[Math.floor(Math.random() * charPool.length)];
-          }
-      }
-      while ((params["miniscule"] && !(new RegExp("[" + minisculePool + "]", "g")).exec(password)) ||
-             (params["majiscule"] && !(new RegExp("[" + majisculePool + "]", "g")).exec(password)) ||
-             (params["numbers"] && !(new RegExp("[" + numberPool + "]", "g")).exec(password)) ||
-             (params["symbols"] && symbolPool && !(new RegExp("[" + symbolPool.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1") + "]", "g")).exec(password)))
+            password += charPool[Math.floor(Math.random() * charPool.length)];
+      } while ((params["miniscule"] && !(new RegExp("[" + minisculePool + "]", "g")).exec(password)) ||
+               (params["majiscule"] && !(new RegExp("[" + majisculePool + "]", "g")).exec(password)) ||
+               (params["numbers"] && !(new RegExp("[" + numberPool + "]", "g")).exec(password)) ||
+               (params["symbols"] && symbolPool && !(new RegExp("[" + symbolPool.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1") + "]", "g")).exec(password)))
 
       document.getElementById("styleblock").textContent = "#dots:after{content:'" + new Array(password.length + 1).join("●") + "'}";
       document.getElementById("password").textContent = password;
-      //]]>
-    </script>
+    //]]></script>
   </body>
 </html>
