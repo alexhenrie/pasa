@@ -26,16 +26,26 @@
     <script type="application/javascript">
       window.preferences = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefBranch);
       window.clipboard = Components.classes["@mozilla.org/widget/clipboardhelper;1"].getService(Components.interfaces.nsIClipboardHelper);
+
+      function rememberSignons() {
+        preferences.setBoolPref('signon.rememberSignons', true);
+        document.getElementById('remembersignons').parentNode.removeChild(document.getElementById('remembersignons'));
+      }
+
+      function syncSignons() {
+        preferences.setBoolPref('services.sync.engine.passwords', true);
+        document.getElementById('syncsignons').parentNode.removeChild(document.getElementById('syncsignons'));
+      }
     </script>
   </head>
   <body class="container">
     <script type="application/javascript">//<![CDATA
       if (!preferences.getBoolPref("signon.rememberSignons"))
-        document.write("<div class=\"alert alert-warning\" id=\"remembersignons\">Firefox does not currently ask to remember passwords. <a href=\"javascript:preferences.setBoolPref('signon.rememberSignons', true); document.getElementById('remembersignons').parentNode.removeChild(document.getElementById('remembersignons')); undefined;\">Click here to fix that.</a></div>");
+        document.write("<div class=\"alert alert-warning\" id=\"remembersignons\">Firefox does not currently ask to remember passwords. <a href=\"javascript:rememberSignons()\">Click here to fix that.</a></div>");
       if (!preferences.prefHasUserValue("services.sync.account"))
         document.write("<div class=\"alert alert-warning\">Your passwords saved in Firefox are not currently backed up via Firefox Sync because you are not currently signed in to Firefox Sync. <a href=\"about:accounts\">Sign in to Firefox Sync</a> to back up your passwords automatically.</div>");
       if (preferences.prefHasUserValue("services.sync.engine.passwords"))
-        document.write("<div class=\"alert alert-warning\" id=\"syncsignons\">Your passwords saved in Firefox are not currently backed up via Firefox Sync because password sync is turned off. <a href=\"javascript:preferences.setBoolPref('services.sync.engine.passwords', true); document.getElementById('syncsignons').parentNode.removeChild(document.getElementById('syncsignons')); undefined;\">Click here to fix that.</a></div>");
+        document.write("<div class=\"alert alert-warning\" id=\"syncsignons\">Your passwords saved in Firefox are not currently backed up via Firefox Sync because password sync is turned off. <a href=\"javascript:syncSignons()\">Click here to fix that.</a></div>");
     //]]></script>
 
     <div class="btn" style="font-size:x-large; float:right"><a href="chrome://passwordmgr/content/passwordManager.xul">View saved passwords</a></div>
