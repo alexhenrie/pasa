@@ -38,6 +38,8 @@
         document.write("<div id=\"syncsignons\">Your passwords saved in Firefox are not currently backed up via Firefox Sync because password sync is turned off. <a href=\"javascript:preferences.setBoolPref('services.sync.engine.passwords', true); document.getElementById('syncsignons').parentNode.removeChild(document.getElementById('syncsignons')); undefined;\">Click here to fix that.</a></div>");
     //]]></script>
 
+    <div class="btn" style="font-size:x-large; float:right"><a href="chrome://passwordmgr/content/passwordManager.xul">View saved passwords</a></div>
+
     <h2>
       New random password:
       <div style="display:inline-block; font-family:monospace; position:relative">
@@ -97,10 +99,6 @@
     <p>
       <input class="btn btn-primary btn-lg" type="submit" value="Generate"/>
     </p>
-
-    <h2>Viewing saved passwords:</h2>
-      <p>If you use the same username and password on two websites (for example, <a href="http://www.amazon.com/">amazon.com</a> and <a href="http://www.amazon.ca/">amazon.ca</a>), and you have saved your password in one website but not the other, you can get the password by right-clicking the website in Firefox's <a href="chrome://passwordmgr/content/passwordManager.xul">saved passwords</a> list and clicking "Copy password".</p>
-    </h2>
 
     <script type="application/javascript">//<![CDATA[
       var useDefaults = location.href.indexOf("?") == -1;
