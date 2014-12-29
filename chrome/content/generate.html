@@ -1,31 +1,58 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link href="bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <style id="styleblock" type="text/css"></style>
     <meta charset="UTF-8"/>
+
     <!-- Raisin picture is CC-BY-SA-2.5 from Cary Bass, https://commons.wikimedia.org/wiki/File:Single_raisin.jpg -->
     <link rel="icon" type="image/png" href="favicon.png"/>
-    <title>Generate password</title>
-    <style type="text/css">
-      h1 {
-        font-weight: normal;
-      }
+
+    <link href="bootstrap.min.css" rel="stylesheet" />
+
+    <style>
       label {
         -moz-user-select: none;
         user-select: none;
       }
-      input[type="number"],input[type="text"] {
-        width: 150px;
+      td {
+        padding-left: 25px;
+        padding-right: 25px;
+        vertical-align: top;
       }
-      form {
-        padding-left: 18px;
+      #passwordCell {
+        border-bottom: none;
+        border-right: 1px solid black;
+        width: 50ex;
+      }
+      /* big screen */
+      @media not all and (max-width: 100ex) {
+        h2 {
+          margin-top: 0;
+        }
+        .small-screen {
+          display: none;
+        }
+      }
+      /* small screen */
+      @media (max-width: 100ex) {
+        td {
+          display: inline-block;
+          padding-bottom:25px;
+        }
+        .big-screen {
+          display: none;
+        }
+        #passwordCell {
+          border-bottom: 1px solid black;
+          border-right: none;
+          width: auto;
+        }
       }
     </style>
 
-    <script type="application/javascript">
-      window.preferences = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefBranch);
-      window.clipboard = Components.classes["@mozilla.org/widget/clipboardhelper;1"].getService(Components.interfaces.nsIClipboardHelper);
+    <style id="styleblock"></style>
+
+    <script>//<![CDATA
+      var preferences = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefBranch);
 
       function rememberSignons() {
         preferences.setBoolPref('signon.rememberSignons', true);
@@ -36,10 +63,17 @@
         preferences.setBoolPref('services.sync.engine.passwords', true);
         document.getElementById('syncSignons').parentNode.removeChild(document.getElementById('syncSignons'));
       }
-    </script>
+
+      function passwordToClipboard() {
+        var clipboard = Components.classes["@mozilla.org/widget/clipboardhelper;1"].getService(Components.interfaces.nsIClipboardHelper);
+        clipboard.copyString(document.getElementById('password').textContent);
+      }
+    //]></script>
+
+    <title>Generate password</title>
   </head>
   <body class="container">
-    <script type="application/javascript">//<![CDATA
+    <script>//<![CDATA
       if (!preferences.getBoolPref("signon.rememberSignons"))
         document.write("<div class=\"alert alert-warning\" id=\"rememberSignons\">Firefox does not currently ask to remember passwords. <a href=\"javascript:rememberSignons()\">Click here to fix that.</a></div>");
       if (!preferences.prefHasUserValue("services.sync.account"))
@@ -50,65 +84,83 @@
 
     <div class="btn" style="font-size:x-large; float:right"><a href="chrome://passwordmgr/content/passwordManager.xul" target="_new">View saved passwords</a></div>
 
-    <h2>
-      New random password:
-      <div style="display:inline-block; font-family:monospace; position:relative">
-        <div id="password" style="color:transparent; font-size:xx-large; position:absolute; padding:0.5em 1em 0.5em 1em"></div>
-        <div id="dots" style="font-size:xx-large; padding:0.5em 1em 0.5em 1em"></div>
-      </div>
-      <a class="btn btn-lg btn-primary" href="javascript:clipboard.copyString(document.getElementById('password').textContent)">Copy to clipboard</a>
-    </h2>
+    <table style="clear:both; margin-left:auto; margin-right:auto">
+      <tr>
+        <td id="passwordCell">
+          <h2>The following new password has been copied to the clipboard:</h2>
 
-    <p>After setting your password for a website, sign out and sign back in to make sure that Firefox saved the password. If it is not saved anywhere else, then <b>this password will be gone for good</b> when you close this page, refresh this page, or generate a new password on this page.</p>
+          <div style="display:inline-block; font-family:monospace; position:relative">
+            <div id="password" style="color:transparent; font-size:xx-large; padding:0.5em 1em 0.5em 1em; position:absolute"></div>
+            <div id="dots" style="font-size:xx-large; padding:0.5em 1em 0.5em 1em"></div>
+          </div>
 
-    <h2>Generate another password:</h2>
+          <p>After setting your password for a website, sign out and sign back in to make sure that Firefox saved the password. If it is not saved anywhere else, then <span style="font-weight:bold">this password will be gone for good</span> when you close this page, refresh this page, or generate a new password on this page.</p>
 
-    <form class="form-horizontal" action="" method="get">
-      <div class="form-group">
-        <div class="checkbox">
-          <label for="miniscule">
-            <input id="miniscule" name="miniscule" type="checkbox" checked="checked"/> Lowercase letters
-          </label>
-        </div>
-      </div>
+          <a class="btn btn-lg btn-primary small-screen" href="javascript:passwordToClipboard()">Copy to clipboard again</a>
+        </td>
+        <td>
+          <form action="" class="form-horizontal" id="form" method="get">
+            <h2>Options</h2>
 
-      <div class="form-group">
-        <div class="checkbox">
-          <label>
-            <input id="majiscule" name="majiscule" type="checkbox" checked="checked"/> Uppercase letters
-          </label>
-        </div>
-      </div>
+            <div class="form-group" style="margin-left:0">
+              <div class="checkbox">
+                <label for="miniscule">
+                  <input checked="checked" id="miniscule" name="miniscule" type="checkbox"/>
+                  Lowercase letters
+                </label>
+              </div>
+            </div>
 
-      <div class="form-group">
-        <div class="checkbox">
-          <label>
-            <input id="numbers" name="numbers" type="checkbox" checked="checked"/> Numbers
-          </label>
-        </div>
-      </div>
+            <div class="form-group" style="margin-left:0">
+              <div class="checkbox">
+                <label>
+                  <input checked="checked" id="majiscule" name="majiscule" type="checkbox"/>
+                  Uppercase letters
+                </label>
+              </div>
+            </div>
 
-      <div class="form-group">
-        <div class="checkbox">
-          <label>
-            <input id="symbols" name="symbols" type="checkbox"/>
-            Symbols:
-          </label>
-          <input id="oksymbols" class="form-control" name="oksymbols" type="text" value="-_." oninput="document.getElementById('symbols').checked = true;" style="margin-top: 4px;" />
-        </div>
-      </div>
+            <div class="form-group" style="margin-left:0">
+              <div class="checkbox">
+                <label>
+                  <input checked="checked" id="numbers" name="numbers" type="checkbox"/>
+                  Numbers
+                </label>
+              </div>
+            </div>
 
-      <div class="form-group">
-        <div>
-          Length:
-          <input style="margin-top: 4px;" class="form-control" id="length" name="length" type="number" min="1" value="10"/>
-        </div>
-      </div>
+            <div class="form-group" style="margin-left:0">
+              <div class="checkbox">
+                <label>
+                  <input id="symbols" name="symbols" type="checkbox" style="float:none"/>
+                  Symbols:
+                </label>
+                <input id="oksymbols" class="form-control" name="oksymbols" oninput="document.getElementById('symbols').checked = true" style="display:inline; width:20ex" type="text" value="-_."/>
+              </div>
+            </div>
 
-      <input class="btn btn-primary btn-lg" type="submit" value="Generate"/>
-    </form>
+            <div class="form-group" style="margin-left:0">
+              <div>
+                Length:
+                <input style="display:inline; width:10ex" class="form-control" id="length" name="length" type="number" min="1" value="10"/>
+              </div>
+            </div>
 
-    <script type="application/javascript">//<![CDATA[
+            <input class="btn btn-primary btn-lg small-screen" type="submit" value="Generate another password"/>
+          </form>
+        </td>
+      </tr>
+      <tr class="big-screen">
+        <td style="border-right:1px solid black">
+          <a class="btn btn-lg btn-primary" href="javascript:passwordToClipboard()">Copy to clipboard again</a>
+        </td>
+        <td>
+          <a class="btn btn-primary btn-lg" href="javascript:document.getElementById('form').submit()">Generate another password</a>
+        </td>
+      </tr>
+    </table>
+
+    <script>//<![CDATA[
       var useDefaults = (location.href.indexOf("?") == -1);
 
       var params = {};
@@ -160,6 +212,7 @@
 
       document.getElementById("styleblock").textContent = "#dots:after{content:'" + new Array(password.length + 1).join("●") + "'}";
       document.getElementById("password").textContent = password;
+      passwordToClipboard();
     //]]></script>
   </body>
 </html>
