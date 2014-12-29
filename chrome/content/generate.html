@@ -91,7 +91,7 @@
 
           <div style="display:inline-block; font-family:monospace; position:relative">
             <div id="password" style="color:transparent; font-size:xx-large; padding:0.5em 1em 0.5em 1em; position:absolute"></div>
-            <div id="dots" style="font-size:xx-large; padding:0.5em 1em 0.5em 1em"></div>
+            <div id="dots" style="font-size:xx-large; padding:0.5em 1em 0.5em 1em">&nbsp;</div>
           </div>
 
           <p>After setting your password for a website, sign out and sign back in to make sure that Firefox saved the password. If it is not saved anywhere else, then <span style="font-weight:bold">this password will be gone for good</span> when you close this page, refresh this page, or generate a new password on this page.</p>
@@ -210,9 +210,15 @@
                (params["numbers"] && !(new RegExp("[" + numberPool + "]", "g")).exec(password)) ||
                (params["symbols"] && symbolPool && !(new RegExp("[" + symbolPool.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1") + "]", "g")).exec(password)))
 
-      document.getElementById("styleblock").textContent = "#dots:after{content:'" + new Array(password.length + 1).join("●") + "'}";
       document.getElementById("password").textContent = password;
       passwordToClipboard();
+
+      //flashy animation for visual feedback
+      for (var i = 0; i < length; i++) {
+        setTimeout(function(i) {
+          document.getElementById("styleblock").textContent = "#dots:before{content:'" + new Array(i + 2).join("●") + "'}";
+        }, (500 / length) * (i + 1), i);
+      }
     //]]></script>
   </body>
 </html>
