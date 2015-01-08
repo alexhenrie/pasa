@@ -85,7 +85,7 @@
 
             <div class="form-group" style="margin-left:0">
               <div class="checkbox">
-                <label for="miniscule">
+                <label>
                   <input checked="checked" id="miniscule" name="miniscule" type="checkbox"/>
                   Lowercase letters
                 </label>
@@ -127,7 +127,7 @@
               </div>
             </div>
 
-            <input class="btn btn-primary btn-lg small-screen" type="submit" value="Generate another password"/>
+            <input class="btn btn-primary btn-lg small-screen" id="generate1" type="submit" value="Generate another password"/>
           </form>
         </td>
       </tr>
@@ -136,7 +136,7 @@
           <button class="btn btn-lg btn-primary" id="clipboardCopy2">Copy to clipboard again</button>
         </td>
         <td>
-          <button class="btn btn-primary btn-lg" onclick="document.getElementById('form').submit()">Generate another password</button>
+          <button class="btn btn-primary btn-lg" id="generate2" onclick="document.getElementById('form').submit()">Generate another password</button>
         </td>
       </tr>
     </table>

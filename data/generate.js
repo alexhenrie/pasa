@@ -112,7 +112,11 @@ for (var i = 0; i < length; i++) {
 }
 
 
-/* UI setup */
+/* UI setup and form validation */
+
+document.getElementById('viewsaved').addEventListener('click', function() {
+  self.port.emit('viewSavedPasswords');
+});
 
 function passwordToClipboard() {
   self.port.emit('clipboardCopy', document.getElementById('password').textContent);
@@ -121,6 +125,20 @@ function passwordToClipboard() {
 document.getElementById('clipboardCopy1').addEventListener('click', passwordToClipboard);
 document.getElementById('clipboardCopy2').addEventListener('click', passwordToClipboard);
 
-document.getElementById('viewsaved').addEventListener('click', function() {
-  self.port.emit('viewSavedPasswords');
-});
+var miniscule = document.getElementById('miniscule');
+var majiscule = document.getElementById('majiscule');
+var numbers = document.getElementById('numbers');
+var symbols = document.getElementById('symbols');
+var oksymbols = document.getElementById('oksymbols');
+
+function validateForm() {
+  var inputIsInvalid = !miniscule.checked && !majiscule.checked && !numbers.checked && (!symbols.checked || !oksymbols.value);
+  document.getElementById('generate1').disabled = inputIsInvalid;
+  document.getElementById('generate2').disabled = inputIsInvalid;
+}
+
+miniscule.addEventListener('click', validateForm);
+majiscule.addEventListener('click', validateForm);
+numbers.addEventListener('click', validateForm);
+symbols.addEventListener('click', validateForm);
+oksymbols.addEventListener('input', validateForm);
