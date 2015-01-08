@@ -53,35 +53,50 @@ self.port.on('notifyPreferences', function(preferences) {
 /* password generation */
 
 var useDefaults = (location.href.indexOf('?') == -1);
-
-var params = {};
-function applyCheckboxParam(name) {
-  if (useDefaults) {
-    params[name] = document.getElementById(name).checked;
-  } else {
-    params[name] = location.href.indexOf(name + '=on') != -1;
-    document.getElementById(name).checked = params[name] ? true : false;
-  }
-}
-applyCheckboxParam('miniscule');
-applyCheckboxParam('majiscule');
-applyCheckboxParam('numbers');
-applyCheckboxParam('symbols');
-
+var params;
+var charPool;
 var minisculePool = 'abcdefghijklmnopqrstuvwxyz';
 var majisculePool = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 var numberPool = '0123456789';
-var symbolPool = decodeURIComponent((/oksymbols=([^&]+)/g.exec(location.href) || ["", ""])[1]);
+var symbolPool;
 
-var charPool = '';
-if (params['miniscule'])
-  charPool += minisculePool;
-if (params['majiscule'])
-  charPool += majisculePool;
-if (params['numbers'])
-  charPool += numberPool;
-if (params['symbols'])
-  charPool += symbolPool;
+function populateCharPool() {
+  params = {};
+  function applyCheckboxParam(name) {
+    if (useDefaults) {
+      params[name] = document.getElementById(name).hasAttribute('checked');
+    } else {
+      params[name] = location.href.indexOf(name + '=on') != -1;
+    }
+    document.getElementById(name).checked = params[name] ? true : false;
+  }
+  applyCheckboxParam('miniscule');
+  applyCheckboxParam('majiscule');
+  applyCheckboxParam('numbers');
+  applyCheckboxParam('symbols');
+
+  symbolPool = decodeURIComponent((/oksymbols=([^&]+)/g.exec(location.href) || ["", ""])[1]);
+
+  charPool = '';
+  if (params['miniscule'])
+    charPool += minisculePool;
+  if (params['majiscule'])
+    charPool += majisculePool;
+  if (params['numbers'])
+    charPool += numberPool;
+  if (params['symbols'])
+    charPool += symbolPool;
+}
+
+populateCharPool();
+
+//if the input was screwy, revert to defaults
+if (!charPool) {
+  useDefaults = true;
+  document.getElementById('generate1').disabled = false;
+  document.getElementById('generate2').disabled = false;
+  populateCharPool();
+}
 
 if (symbolPool)
   document.getElementById('oksymbols').value = symbolPool;
