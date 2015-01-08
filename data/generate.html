@@ -52,7 +52,11 @@
       }
     </style>
 
-    <style id="styleblock"></style>
+    <style id="styleblock">
+      #dots:before {
+        content: "\A0"; /* nbsp placeholder */
+      }
+    </style>
 
     <title>Generate password</title>
   </head>
@@ -68,7 +72,7 @@
 
           <div style="display:inline-block; font-family:monospace; position:relative">
             <div id="password" style="color:transparent; font-size:xx-large; padding:0.5em 1em 0.5em 1em; position:absolute"></div>
-            <div id="dots" style="font-size:xx-large; padding:0.5em 1em 0.5em 1em">&nbsp;</div>
+            <div id="dots" style="font-size:xx-large; padding:0.5em 1em 0.5em 1em"></div>
           </div>
 
           <p>After setting your password for a website, sign out and sign back in to make sure that Firefox saved the password. If it is not saved anywhere else, then <span style="font-weight:bold">this password will be gone for good</span> when you close this page, refresh this page, or generate a new password on this page.</p>
