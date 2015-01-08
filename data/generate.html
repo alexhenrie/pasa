@@ -25,6 +25,9 @@
       }
       /* big screen */
       @media not all and (max-width: 100ex) {
+        body {
+          padding-bottom: 25px;
+        }
         h2 {
           margin-top: 0;
         }
@@ -36,7 +39,7 @@
       @media (max-width: 100ex) {
         td {
           display: inline-block;
-          padding-bottom:25px;
+          padding-bottom: 25px;
         }
         .big-screen {
           display: none;
@@ -129,7 +132,7 @@
           <button class="btn btn-lg btn-primary" id="clipboardCopy2">Copy to clipboard again</button>
         </td>
         <td>
-          <a class="btn btn-primary btn-lg" href="javascript:document.getElementById('form').submit()">Generate another password</a>
+          <button class="btn btn-primary btn-lg" onclick="document.getElementById('form').submit()">Generate another password</button>
         </td>
       </tr>
     </table>
