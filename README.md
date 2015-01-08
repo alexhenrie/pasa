@@ -21,7 +21,7 @@ Build
 1. https://developer.mozilla.org/en-US/Add-ons/SDK/Tutorials/Installation
 2. Extract https://ftp.mozilla.org/pub/mozilla.org/labs/jetpack/jetpack-sdk-latest.tar.gz
 3. Run `source bin/activate` from the addok-sdk directory
-4. Run `make` from the pasa directory
+4. Run `cfx xpi` from the pasa directory
 5. Drag and drop pasa.xpi into Firefox
 
 License

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8"/>
+
+    <!-- Raisin picture is CC-BY-SA-2.5 from Cary Bass, https://commons.wikimedia.org/wiki/File:Single_raisin.jpg -->
+    <link rel="icon" type="image/png" href="about:pasa/icon-16.png"/>
+
+    <link href="about:pasa/bootstrap.min.css" rel="stylesheet"/>
+
+    <style>
+      label {
+        -moz-user-select: none;
+        user-select: none;
+      }
+      td {
+        padding-left: 25px;
+        padding-right: 25px;
+        vertical-align: top;
+      }
+      #passwordCell {
+        border-bottom: none;
+        border-right: 1px solid black;
+        width: 50ex;
+      }
+      /* big screen */
+      @media not all and (max-width: 100ex) {
+        h2 {
+          margin-top: 0;
+        }
+        .small-screen {
+          display: none;
+        }
+      }
+      /* small screen */
+      @media (max-width: 100ex) {
+        td {
+          display: inline-block;
+          padding-bottom:25px;
+        }
+        .big-screen {
+          display: none;
+        }
+        #passwordCell {
+          border-bottom: 1px solid black;
+          border-right: none;
+          width: auto;
+        }
+      }
+    </style>
+
+    <style id="styleblock"></style>
+
+    <title>Generate password</title>
+  </head>
+  <body class="container">
+    <div id="warnings"></div>
+
+    <div class="btn" style="font-size:x-large; float:right"><a id="viewsaved">View saved passwords</a></div>
+
+    <table style="clear:both; margin-left:auto; margin-right:auto">
+      <tr>
+        <td id="passwordCell">
+          <h2>The following new password has been copied to the clipboard:</h2>
+
+          <div style="display:inline-block; font-family:monospace; position:relative">
+            <div id="password" style="color:transparent; font-size:xx-large; padding:0.5em 1em 0.5em 1em; position:absolute"></div>
+            <div id="dots" style="font-size:xx-large; padding:0.5em 1em 0.5em 1em">&nbsp;</div>
+          </div>
+
+          <p>After setting your password for a website, sign out and sign back in to make sure that Firefox saved the password. If it is not saved anywhere else, then <span style="font-weight:bold">this password will be gone for good</span> when you close this page, refresh this page, or generate a new password on this page.</p>
+
+          <button class="btn btn-lg btn-primary small-screen" id="clipboardCopy1">Copy to clipboard again</button>
+        </td>
+        <td>
+          <form class="form-horizontal" id="form">
+            <h2>Options</h2>
+
+            <div class="form-group" style="margin-left:0">
+              <div class="checkbox">
+                <label for="miniscule">
+                  <input checked="checked" id="miniscule" name="miniscule" type="checkbox"/>
+                  Lowercase letters
+                </label>
+              </div>
+            </div>
+
+            <div class="form-group" style="margin-left:0">
+              <div class="checkbox">
+                <label>
+                  <input checked="checked" id="majiscule" name="majiscule" type="checkbox"/>
+                  Uppercase letters
+                </label>
+              </div>
+            </div>
+
+            <div class="form-group" style="margin-left:0">
+              <div class="checkbox">
+                <label>
+                  <input checked="checked" id="numbers" name="numbers" type="checkbox"/>
+                  Numbers
+                </label>
+              </div>
+            </div>
+
+            <div class="form-group" style="margin-left:0">
+              <div class="checkbox">
+                <label>
+                  <input id="symbols" name="symbols" type="checkbox" style="float:none"/>
+                  Symbols:
+                </label>
+                <input id="oksymbols" class="form-control" name="oksymbols" oninput="document.getElementById('symbols').checked = true" style="display:inline; width:20ex" type="text" value="-_."/>
+              </div>
+            </div>
+
+            <div class="form-group" style="margin-left:0">
+              <div>
+                Length:
+                <input style="display:inline; width:10ex" class="form-control" id="length" name="length" type="number" min="1" value="10"/>
+              </div>
+            </div>
+
+            <input class="btn btn-primary btn-lg small-screen" type="submit" value="Generate another password"/>
+          </form>
+        </td>
+      </tr>
+      <tr class="big-screen">
+        <td style="border-right:1px solid black">
+          <button class="btn btn-lg btn-primary" id="clipboardCopy2">Copy to clipboard again</button>
+        </td>
+        <td>
+          <a class="btn btn-primary btn-lg" href="javascript:document.getElementById('form').submit()">Generate another password</a>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
