@@ -70,9 +70,9 @@
         <td id="passwordCell">
           <h2>The following new password has been copied to the clipboard:</h2>
 
-          <div style="display:inline-block; font-family:monospace; position:relative">
-            <div id="password" style="color:transparent; font-size:xx-large; padding:0.5em 1em 0.5em 1em; position:absolute"></div>
-            <div id="dots" style="font-size:xx-large; padding:0.5em 1em 0.5em 1em"></div>
+          <div style="font-family:monospace; position:relative; width:inherit; word-wrap:break-word">
+            <div id="password" style="color:transparent; font-size:xx-large; padding:0.5em 1em 0.5em 1em; position:absolute; width:inherit"></div>
+            <div id="dots" style="font-size:xx-large; padding:0.5em 1em 0.5em 1em; width:inherit"></div>
           </div>
 
           <p>After setting your password for a website, sign out and sign back in to make sure that Firefox saved the password. If it is not saved anywhere else, then <strong>this password will be gone for good</strong> when you close this page, refresh this page, or generate a new password on this page.</p>
@@ -123,7 +123,7 @@
             <div class="form-group" style="margin-left:0">
               <div>
                 Length:
-                <input style="display:inline; width:10ex" class="form-control" id="length" name="length" type="number" min="1" value="10"/>
+                <input style="display:inline; width:10ex" class="form-control" id="length" name="length" type="number" max="1000" min="1" value="10"/>
               </div>
             </div>
 
