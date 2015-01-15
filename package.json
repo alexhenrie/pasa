@@ -6,5 +6,5 @@
   "description": "Adds a toolbar button to generate secure passwords. The length of the generated password or the permissible characters (letters, numbers, symbols) can be changed to adapt to any web site's password requirements. Users are encouraged to use Firefox Sync to save generated passwords.",
   "author": "Alex Henrie",
   "license": "MPL 2.0",
-  "version": "1.0"
+  "version": "1.1"
 }
