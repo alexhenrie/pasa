@@ -1,52 +1,61 @@
-/* warnings */
+/* initial setup */
 
-self.port.on('notifyPreferences', function(preferences) {
-  if (!preferences['signon.rememberSignons']) {
-    var div = document.createElement('div');
-    div.className = 'alert alert-warning';
-    div.textContent = 'Firefox does not currently ask to remember passwords. ';
+self.port.on('init', function(init) {
+  /* localization */
 
-    var a = document.createElement('a');
-    a.href = '';
-    a.textContent = 'Click here to fix that.';
-    a.addEventListener('click', function() {
+  document.title = init.translations.pageTitle;
+
+  Object.keys(init.translations).forEach(function(id)
+  {
+    var element = document.getElementById(id);
+    if (element)
+      element.appendChild(document.createRange().createContextualFragment(init.translations[id]));
+  });
+
+  document.getElementById('clipboardCopy1').textContent = init.translations.clipboardCopy;
+  document.getElementById('clipboardCopy2').textContent = init.translations.clipboardCopy;
+
+  document.getElementById('generate1').value = init.translations.generate;
+  document.getElementById('generate2').textContent = init.translations.generate;
+
+  /* warnings */
+
+  var warnings = document.getElementById('warnings');
+
+  if (!init.preferences['signon.rememberSignons']) {
+    var rememberPasswords = document.createElement('div');
+    rememberPasswords.className = 'alert alert-warning';
+    rememberPasswords.appendChild(document.createRange().createContextualFragment(init.translations.rememberPasswords));
+    warnings.appendChild(rememberPasswords);
+
+    document.getElementById('enableRememberPasswords').addEventListener('click', function() {
       self.port.emit('setPref', 'signon.rememberSignons');
+      warnings.removeChild(rememberPasswords);
     });
-
-    div.appendChild(a);
-    document.getElementById('warnings').appendChild(div);
   }
 
-  if (!preferences['services.sync.account']) {
-    var div = document.createElement('div');
-    div.className = 'alert alert-warning';
-    div.textContent = 'Your passwords saved in Firefox are not currently backed up via Firefox Sync because you are not currently signed in to Firefox Sync. ';
-
-    var a = document.createElement('a');
-    a.href = 'about:accounts';
-    a.target = '_new';
-    a.textContent = 'Sign in to Firefox Sync';
-
-    div.appendChild(a);
-    div.appendChild(document.createTextNode(' to back up your passwords automatically.'));
-    document.getElementById('warnings').appendChild(div);
+  if (!init.preferences['services.sync.account']) {
+    var signIn = document.createElement('div');
+    signIn.className = 'alert alert-warning';
+    signIn.appendChild(document.createRange().createContextualFragment(init.translations.signIn));
+    warnings.appendChild(signIn);
   }
 
-  if (!preferences['services.sync.engine.passwords']) {
-    var div = document.createElement('div');
-    div.className = 'alert alert-warning';
-    div.textContent = 'Your passwords saved in Firefox are not currently backed up via Firefox Sync because password sync is turned off. ';
+  if (!init.preferences['services.sync.engine.passwords']) {
+    var syncPasswords = document.createElement('div');
+    syncPasswords.className = 'alert alert-warning';
+    syncPasswords.appendChild(document.createRange().createContextualFragment(init.translations.syncPasswords));
+    warnings.appendChild(syncPasswords);
 
-    var a = document.createElement('a');
-    a.href = '';
-    a.textContent = 'Click here to fix that.';
-    a.addEventListener('click', function() {
+    document.getElementById('enablePasswordSync').addEventListener('click', function() {
       self.port.emit('setPref', 'services.sync.engine.passwords');
+      warnings.removeChild(syncPasswords);
     });
-
-    div.appendChild(a);
-    document.getElementById('warnings').appendChild(div);
   }
+
+  /* show the finished page */
+
+  document.body.style = '';
 });
 
 
@@ -129,7 +138,7 @@ for (var i = 0; i < length; i++) {
 
 /* UI setup and form validation */
 
-document.getElementById('viewsaved').addEventListener('click', function() {
+document.getElementById('viewSaved').addEventListener('click', function() {
   self.port.emit('viewSavedPasswords');
 });
 
