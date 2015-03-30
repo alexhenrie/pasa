@@ -13,8 +13,11 @@ All passwords are generated locally; there is no dependency on any external web
 service. Users are encouraged to save generated passwords in Firefox and back
 them up with Firefox Sync.
 
-_Pasa_ is Spanish. It can mean either _come in_ or _raisin_, depending on the
-context.
+Pasa also provides context menus on password fields to let you save and insert
+passwords even when the website would not normally allow you to do so.
+
+The word _pasa_ is Spanish. It can mean either _come in_ or _raisin_, depending
+on the context.
 
 Build
 =====
