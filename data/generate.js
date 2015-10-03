@@ -82,6 +82,7 @@ function populateCharPool() {
   applyCheckboxParam('miniscule');
   applyCheckboxParam('majiscule');
   applyCheckboxParam('numbers');
+  applyCheckboxParam('lookalikes');
   applyCheckboxParam('symbols');
 
   symbolPool = decodeURIComponent((/oksymbols=([^&]+)/g.exec(location.href) || ["", ""])[1]);
@@ -93,6 +94,8 @@ function populateCharPool() {
     charPool += majisculePool;
   if (params['numbers'])
     charPool += numberPool;
+  if (!params['lookalikes'])
+    charPool = charPool.replace(/[iI1oO0]/g, "");
   if (params['symbols'])
     charPool += symbolPool;
 }
