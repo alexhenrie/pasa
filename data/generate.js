@@ -79,8 +79,8 @@ function populateCharPool() {
     }
     document.getElementById(name).checked = params[name] ? true : false;
   }
-  applyCheckboxParam('miniscule');
-  applyCheckboxParam('majiscule');
+  applyCheckboxParam('miniscules');
+  applyCheckboxParam('majiscules');
   applyCheckboxParam('numbers');
   applyCheckboxParam('lookalikes');
   applyCheckboxParam('symbols');
@@ -88,9 +88,9 @@ function populateCharPool() {
   symbolPool = decodeURIComponent((/oksymbols=([^&]+)/g.exec(location.href) || ["", ""])[1]);
 
   charPool = '';
-  if (params['miniscule'])
+  if (params['miniscules'])
     charPool += minisculePool;
-  if (params['majiscule'])
+  if (params['majiscules'])
     charPool += majisculePool;
   if (params['numbers'])
     charPool += numberPool;
@@ -123,8 +123,8 @@ do {
   password = '';
   for (var i = 0; i < length; i++)
     password += charPool[Math.floor(Math.random() * charPool.length)];
-} while ((params['miniscule'] && !(new RegExp('[' + minisculePool + ']', 'g')).exec(password)) ||
-         (params['majiscule'] && !(new RegExp('[' + majisculePool + ']', 'g')).exec(password)) ||
+} while ((params['miniscules'] && !(new RegExp('[' + minisculePool + ']', 'g')).exec(password)) ||
+         (params['majiscules'] && !(new RegExp('[' + majisculePool + ']', 'g')).exec(password)) ||
          (params['numbers'] && !(new RegExp('[' + numberPool + ']', 'g')).exec(password)) ||
          (params['symbols'] && symbolPool && !(new RegExp('[' + symbolPool.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, '\\$1') + ']', 'g')).exec(password)))
 
@@ -152,20 +152,20 @@ function passwordToClipboard() {
 document.getElementById('clipboardCopy1').addEventListener('click', passwordToClipboard);
 document.getElementById('clipboardCopy2').addEventListener('click', passwordToClipboard);
 
-var miniscule = document.getElementById('miniscule');
-var majiscule = document.getElementById('majiscule');
+var miniscules = document.getElementById('miniscules');
+var majiscules = document.getElementById('majiscules');
 var numbers = document.getElementById('numbers');
 var symbols = document.getElementById('symbols');
 var oksymbols = document.getElementById('oksymbols');
 
 function validateForm() {
-  var inputIsInvalid = !miniscule.checked && !majiscule.checked && !numbers.checked && (!symbols.checked || !oksymbols.value);
+  var inputIsInvalid = !miniscules.checked && !majiscules.checked && !numbers.checked && (!symbols.checked || !oksymbols.value);
   document.getElementById('generate1').disabled = inputIsInvalid;
   document.getElementById('generate2').disabled = inputIsInvalid;
 }
 
-miniscule.addEventListener('click', validateForm);
-majiscule.addEventListener('click', validateForm);
+miniscules.addEventListener('click', validateForm);
+majiscules.addEventListener('click', validateForm);
 numbers.addEventListener('click', validateForm);
 symbols.addEventListener('click', validateForm);
 oksymbols.addEventListener('input', validateForm);
