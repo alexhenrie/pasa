@@ -81,7 +81,12 @@
         </td>
         <td>
           <form class="form-horizontal" id="form">
-            <h2 id="optionsHeader"></h2>
+            <div style="display:flex; align-items:baseline">
+              <h2 id="optionsHeader"></h2>
+              <div style="flex-grow:1; padding-left:25px; text-align:right">
+                <a class="btn btn-default" href="" id="resetButton" role="button"></a>
+              </div>
+            </div>
 
             <div class="form-group" style="margin-left:0">
               <div class="checkbox">
@@ -124,7 +129,7 @@
               <input style="display:inline; width:10ex" class="form-control" id="length" name="length" type="number" max="1000" min="1" value="10"/>
             </div>
 
-            <input class="btn btn-primary btn-lg small-screen" id="generate1" type="submit"></input>
+            <button class="btn btn-primary btn-lg small-screen" id="generate1"></input>
           </form>
         </td>
       </tr>
@@ -133,7 +138,7 @@
           <button class="btn btn-lg btn-primary" id="clipboardCopy2"></button>
         </td>
         <td>
-          <button class="btn btn-primary btn-lg" id="generate2" onclick="document.getElementById('form').submit()"></button>
+          <button class="btn btn-primary btn-lg" id="generate2"></button>
         </td>
       </tr>
     </table>

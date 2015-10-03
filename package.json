@@ -6,5 +6,56 @@
   "description": "Adds a toolbar button to generate secure passwords. Users are encouraged to save generated passwords in Firefox and back them up with Firefox Sync.",
   "author": "Alex Henrie",
   "license": "MPL 2.0",
-  "version": "1.4.1"
+  "version": "1.4.1",
+  "preferences": [
+    {
+      "name": "miniscules",
+      "type": "bool",
+      "value": true,
+      "title": "Lowercase letters",
+      "hidden": true
+    },
+    {
+      "name": "majiscules",
+      "type": "bool",
+      "value": true,
+      "title": "Uppercase letters",
+      "hidden": true
+    },
+    {
+      "name": "numbers",
+      "type": "bool",
+      "value": true,
+      "title": "Numbers",
+      "hidden": true
+    },
+    {
+      "name": "lookalikes",
+      "type": "bool",
+      "value": true,
+      "title": "Symbols",
+      "hidden": true
+    },
+    {
+      "name": "symbols",
+      "type": "bool",
+      "value": false,
+      "title": "Symbols",
+      "hidden": true
+    },
+    {
+      "name": "oksymbols",
+      "type": "string",
+      "value": "@#$%&-+*!?/.",
+      "title": "Symbols",
+      "hidden": true
+    },
+    {
+      "name": "length",
+      "type": "integer",
+      "value": 10,
+      "title": "Length",
+      "hidden": true
+    }
+  ]
 }
