@@ -148,7 +148,7 @@ self.port.on('init', function(init) {
   document.getElementById('clipboardCopy1').textContent = init.translations.clipboardCopy;
   document.getElementById('clipboardCopy2').textContent = init.translations.clipboardCopy;
 
-  document.getElementById('generate1').value = init.translations.generate;
+  document.getElementById('generate1').textContent = init.translations.generate;
   document.getElementById('generate2').textContent = init.translations.generate;
 
   /* warnings */
