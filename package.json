@@ -1,7 +1,7 @@
 {
   "name": "pasa",
   "title": "Pasa password generator",
-  "id": "jid1-2BU3qgaApUKrsQ",
+  "id": "jid1-2BU3qgaApUKrsQ@jetpack",
   "icon": "data/icon-32.png",
   "description": "Adds a toolbar button to generate secure passwords. Users are encouraged to save generated passwords in Firefox and back them up with Firefox Sync.",
   "author": "Alex Henrie",

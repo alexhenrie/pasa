@@ -71,14 +71,16 @@ function generatePassword()
 function optionsToForm(options)
 {
   Object.keys(options).forEach(function(name) {
+    var el = document.getElementById(name);
+    if (!el) return;
     switch (typeof(options[name]))
     {
       case 'boolean':
-        document.getElementById(name).checked = options[name];
+        el.checked = options[name];
         break;
       case 'string':
       case 'number':
-        document.getElementById(name).value = options[name];
+        el.value = options[name];
         break;
     }
   });
