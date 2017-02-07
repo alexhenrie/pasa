@@ -5,6 +5,7 @@ const cm = require('sdk/context-menu');
 const clipboard = require('sdk/clipboard');
 const l10n = require('sdk/l10n');
 const mod = require('sdk/content/mod');
+const passwords = require('sdk/passwords');
 const self = require('sdk/self');
 const style = require('sdk/stylesheet/style');
 const tabs = require('sdk/tabs');
@@ -13,7 +14,6 @@ const uuid = require('sdk/util/uuid');
 
 const {Cc, Ci, Cm, Cu, components} = require('chrome');
 const componentRegistrar = Cm.QueryInterface(Ci.nsIComponentRegistrar);
-const loginManager = Cc['@mozilla.org/login-manager;1'].getService(Ci.nsILoginManager);
 const browserPrefs = Cc['@mozilla.org/preferences-service;1'].getService(Ci.nsIPrefBranch);
 
 Cu.import('resource://gre/modules/XPCOMUtils.jsm');
@@ -103,48 +103,52 @@ function createInsertPasswordMenu(url) {
 
   var domains = url.hostname.split('.');
 
-  insertPasswordMenu = cm.Menu({
-    contentScript:
-      'self.on("click", function(node, data) { \
-        node.value = data; \
-      });',
-    context: cm.SelectorContext('input[type=password]'),
-    image: self.data.url('icon-16.png'),
-    items: loginManager.getAllLogins({}, {}).filter(function(login) {
-      var loginHostname;
-      try {
-        loginHostname = urls.URL(login.hostname).hostname;
-      } catch (e) {
-        return false;
-      }
-      switch (domains.length) {
-        case 1:
-          //hostnames must match exactly
-          return (loginHostname == url.hostname);
-        case 2:
-          //top-level domains must match (e.g. foo.pepsi and bar.pepsi)
-          return loginHostname.endsWith('.' + domains[domains.length - 1]);
-        default:
-          //second-to-last domains must match (e.g. www.amazon.com and www.amazon.ca)
-          return (loginHostname.split('.').slice(-2)[0] == domains[domains.length - 2]);
-      }
-    }).map(function(login) {
-      return cm.Item({label: login.hostname + '    ' + login.username, data: login.password});
-    }).sort(function(a, b) {
-      //exact prefix+hostname matches float to the top of the list
-      if (a.label.startsWith(url.origin) && !b.label.startsWith(url.origin))
-        return -1;
-      if (!a.label.startsWith(url.origin) && b.label.startsWith(url.origin))
-        return 1;
+  passwords.search({
+    onComplete: function(logins) {
+      insertPasswordMenu = cm.Menu({
+        contentScript:
+          'self.on("click", function(node, data) { \
+            node.value = data; \
+          });',
+        context: cm.SelectorContext('input[type=password]'),
+        image: self.data.url('icon-16.png'),
+        items: logins.filter(function(login) {
+          var loginHostname;
+          try {
+            loginHostname = urls.URL(login.url).hostname;
+          } catch (e) {
+            return false;
+          }
+          switch (domains.length) {
+            case 1:
+              //hostnames must match exactly
+              return (loginHostname == url.hostname);
+            case 2:
+              //top-level domains must match (e.g. foo.pepsi and bar.pepsi)
+              return loginHostname.endsWith('.' + domains[domains.length - 1]);
+            default:
+              //second-to-last domains must match (e.g. www.amazon.com and www.amazon.ca)
+              return (loginHostname.split('.').slice(-2)[0] == domains[domains.length - 2]);
+          }
+        }).map(function(login) {
+          return cm.Item({label: login.url + '    ' + login.username, data: login.password});
+        }).sort(function(a, b) {
+          //exact prefix+hostname matches float to the top of the list
+          if (a.label.startsWith(url.origin) && !b.label.startsWith(url.origin))
+            return -1;
+          if (!a.label.startsWith(url.origin) && b.label.startsWith(url.origin))
+            return 1;
 
-      //otherwise just sort alphabetically
-      if (a < b)
-        return -1;
-      if (a > b)
-        return 1;
-      return 0;
-    }),
-    label: l10n.get('insertPasswordLabel'),
+          //otherwise just sort alphabetically
+          if (a < b)
+            return -1;
+          if (a > b)
+            return 1;
+          return 0;
+        }),
+        label: l10n.get('insertPasswordLabel'),
+      });
+    },
   });
 }
 
@@ -275,9 +279,14 @@ cm.Menu({
       onMessage: function(message) {
         if (message.prefixAndHostname) { //I would use message instanceof Object, but it's always false
           //save the password
-          var loginInfo = Cc['@mozilla.org/login-manager/loginInfo;1'].createInstance(Ci.nsILoginInfo);
-          loginInfo.init(message.prefixAndHostname, '', null, message.username, message.password, message.usernameField, message.passwordField);
-          loginManager.addLogin(loginInfo);
+          passwords.store({
+            url: message.prefixAndHostname,
+            formSubmitURL: message.prefixAndHostname,
+            username: message.username,
+            password: message.password,
+            usernameField: message.usernameField,
+            passwordField: message.passwordField,
+          });
           //update the insert password menu
           createInsertPasswordMenu(message.prefixAndHostname);
         } else {
