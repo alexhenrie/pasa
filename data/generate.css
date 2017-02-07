@@ -1,0 +1,48 @@
+label {
+  -moz-user-select: none;
+}
+
+td {
+  padding-left: 25px;
+  padding-right: 25px;
+  vertical-align: top;
+}
+
+#passwordCell {
+  border-bottom: none;
+  border-right: 1px solid black;
+  width: 50ex;
+}
+
+/* big screen */
+@media not all and (max-width: 100ex) {
+  body {
+    padding-bottom: 25px;
+  }
+
+  h2 {
+    margin-top: 0;
+  }
+
+  .small-screen {
+    display: none;
+  }
+}
+
+/* small screen */
+@media (max-width: 100ex) {
+  td {
+    display: inline-block;
+    padding-bottom: 25px;
+  }
+
+  .big-screen {
+    display: none;
+  }
+
+  #passwordCell {
+    border-bottom: 1px solid black;
+    border-right: none;
+    width: auto;
+  }
+}

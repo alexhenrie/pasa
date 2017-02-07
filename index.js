@@ -156,6 +156,7 @@ function destroyInsertPasswordMenu() {
 tabs.on('ready', function(tab) {
   if (/^about:pasa\??/.test(tab.url)) {
     mod.attach(style.Style({uri: './bootstrap.min.css'}), tab);
+    mod.attach(style.Style({uri: './generate.css'}), tab);
 
     let worker = tab.attach({contentScriptFile: './generate.js'});
 
