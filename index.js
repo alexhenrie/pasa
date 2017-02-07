@@ -1,17 +1,17 @@
 const addonPrefDefinitions = require('./package.json').preferences;
 const addonPrefs = require('sdk/simple-prefs').prefs;
 const buttons = require('sdk/ui/button/action');
-const cm = require("sdk/context-menu");
+const cm = require('sdk/context-menu');
 const l10n = require('sdk/l10n');
 const self = require('sdk/self');
 const tabs = require('sdk/tabs');
-const urls = require("sdk/url");
+const urls = require('sdk/url');
 const uuid = require('sdk/util/uuid');
 
 const {Cc, Ci, Cm, Cu, components} = require('chrome');
 const clipboard = Cc['@mozilla.org/widget/clipboardhelper;1'].getService(Ci.nsIClipboardHelper);
 const componentRegistrar = Cm.QueryInterface(Ci.nsIComponentRegistrar);
-const loginManager = Cc["@mozilla.org/login-manager;1"].getService(Ci.nsILoginManager);
+const loginManager = Cc['@mozilla.org/login-manager;1'].getService(Ci.nsILoginManager);
 const browserPrefs = Cc['@mozilla.org/preferences-service;1'].getService(Ci.nsIPrefBranch);
 
 Cu.import('resource://gre/modules/XPCOMUtils.jsm');
@@ -271,7 +271,7 @@ cm.Menu({
       onMessage: function(message) {
         if (message.prefixAndHostname) { //I would use message instanceof Object, but it's always false
           //save the password
-          var loginInfo = Cc["@mozilla.org/login-manager/loginInfo;1"].createInstance(Ci.nsILoginInfo);
+          var loginInfo = Cc['@mozilla.org/login-manager/loginInfo;1'].createInstance(Ci.nsILoginInfo);
           loginInfo.init(message.prefixAndHostname, '', null, message.username, message.password, message.usernameField, message.passwordField);
           loginManager.addLogin(loginInfo);
           //update the insert password menu
