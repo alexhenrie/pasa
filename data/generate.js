@@ -63,7 +63,7 @@ function generatePassword()
   //flashy animation for visual feedback
   for (var i = 0; i < options.length; i++) {
     setTimeout(function(i) {
-      document.getElementById('styleblock').textContent = '#dots:before{content:"' + new Array(i + 2).join('●') + '"}';
+      document.getElementById('styleblock').textContent = '#dots::before{content:"' + new Array(i + 2).join('●') + '"}';
     }, (500 / options.length) * (i + 1), i);
   }
 }
