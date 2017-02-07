@@ -154,7 +154,7 @@ function destroyInsertPasswordMenu() {
 
 tabs.on('ready', function(tab) {
   if (/^about:pasa\??/.test(tab.url)) {
-    let worker = tab.attach({contentScriptFile: self.data.url('generate.js')});
+    let worker = tab.attach({contentScriptFile: './generate.js'});
 
     let translations = {};
     [
