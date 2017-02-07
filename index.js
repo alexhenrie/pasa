@@ -3,7 +3,9 @@ const addonPrefs = require('sdk/simple-prefs').prefs;
 const buttons = require('sdk/ui/button/action');
 const cm = require('sdk/context-menu');
 const l10n = require('sdk/l10n');
+const mod = require('sdk/content/mod');
 const self = require('sdk/self');
+const style = require('sdk/stylesheet/style');
 const tabs = require('sdk/tabs');
 const urls = require('sdk/url');
 const uuid = require('sdk/util/uuid');
@@ -71,7 +73,6 @@ function unregisterAboutUris() {
 
 exports.main = function(options, callbacks) {
   registerAboutUri('pasa', 'generate.html');
-  registerAboutUri('pasa', 'bootstrap.min.css', true);
   registerAboutUri('pasa', 'icon-16.png', true);
 
   buttons.ActionButton({
@@ -154,6 +155,8 @@ function destroyInsertPasswordMenu() {
 
 tabs.on('ready', function(tab) {
   if (/^about:pasa\??/.test(tab.url)) {
+    mod.attach(style.Style({uri: './bootstrap.min.css'}), tab);
+
     let worker = tab.attach({contentScriptFile: './generate.js'});
 
     let translations = {};
