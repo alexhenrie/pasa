@@ -1,5 +1,6 @@
 const addonPrefDefinitions = require('./package.json').preferences;
 const addonPrefs = require('sdk/simple-prefs').prefs;
+const browserPrefs = require('sdk/preferences/service');
 const buttons = require('sdk/ui/button/action');
 const cm = require('sdk/context-menu');
 const clipboard = require('sdk/clipboard');
@@ -14,7 +15,6 @@ const uuid = require('sdk/util/uuid');
 
 const {Cc, Ci, Cm, Cu, components} = require('chrome');
 const componentRegistrar = Cm.QueryInterface(Ci.nsIComponentRegistrar);
-const browserPrefs = Cc['@mozilla.org/preferences-service;1'].getService(Ci.nsIPrefBranch);
 
 Cu.import('resource://gre/modules/XPCOMUtils.jsm');
 
@@ -196,9 +196,9 @@ tabs.on('ready', function(tab) {
     worker.port.emit('init', {
       addonPrefs: addonPrefs,
       browserPrefs: {
-        'signon.rememberSignons': browserPrefs.getBoolPref('signon.rememberSignons'),
-        'services.sync.account': browserPrefs.prefHasUserValue('services.sync.account'),
-        'services.sync.engine.passwords': !browserPrefs.prefHasUserValue('services.sync.engine.passwords'),
+        'signon.rememberSignons': browserPrefs.get('signon.rememberSignons'),
+        'services.sync.account': browserPrefs.isSet('services.sync.account'),
+        'services.sync.engine.passwords': !browserPrefs.isSet('services.sync.engine.passwords'),
       },
       defaultAddonPrefs: defaultAddonPrefs,
       translations: translations,
@@ -213,7 +213,7 @@ tabs.on('ready', function(tab) {
     });
 
     worker.port.on('setBrowserPref', function(pref) {
-      browserPrefs.setBoolPref(pref, true);
+      browserPrefs.set(pref, true);
     });
 
     worker.port.on('viewSavedPasswords', function() {
