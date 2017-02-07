@@ -2,6 +2,7 @@ const addonPrefDefinitions = require('./package.json').preferences;
 const addonPrefs = require('sdk/simple-prefs').prefs;
 const buttons = require('sdk/ui/button/action');
 const cm = require('sdk/context-menu');
+const clipboard = require('sdk/clipboard');
 const l10n = require('sdk/l10n');
 const mod = require('sdk/content/mod');
 const self = require('sdk/self');
@@ -11,7 +12,6 @@ const urls = require('sdk/url');
 const uuid = require('sdk/util/uuid');
 
 const {Cc, Ci, Cm, Cu, components} = require('chrome');
-const clipboard = Cc['@mozilla.org/widget/clipboardhelper;1'].getService(Ci.nsIClipboardHelper);
 const componentRegistrar = Cm.QueryInterface(Ci.nsIComponentRegistrar);
 const loginManager = Cc['@mozilla.org/login-manager;1'].getService(Ci.nsILoginManager);
 const browserPrefs = Cc['@mozilla.org/preferences-service;1'].getService(Ci.nsIPrefBranch);
@@ -201,7 +201,7 @@ tabs.on('ready', function(tab) {
     });
 
     worker.port.on('clipboardCopy', function(text) {
-      clipboard.copyString(text);
+      clipboard.set(text, 'text');
     });
 
     worker.port.on('setAddonPref', function(name, value) {
