@@ -4,7 +4,55 @@
     <meta charset="UTF-8"/>
 
     <!-- Raisin picture is CC-BY-SA-2.5 from Cary Bass, https://commons.wikimedia.org/wiki/File:Single_raisin.jpg -->
-    <link rel="icon" type="image/png" href="about:pasa/icon-16.png"/>
+    <link rel="icon" type="image/png" href="icon-16.png"/>
+
+    <link href="bootstrap.min.css" rel="stylesheet"/>
+
+    <style>
+      label {
+        -moz-user-select: none;
+      }
+      td {
+        padding-left: 25px;
+        padding-right: 25px;
+        vertical-align: top;
+      }
+      .form-horizontal .form-group {
+        margin-left: 0;
+      }
+      #passwordCell {
+        border-bottom: none;
+        border-right: 1px solid black;
+        width: 50ex;
+      }
+      /* big screen */
+      @media not all and (max-width: 100ex) {
+        body {
+          padding-bottom: 25px;
+        }
+        h2 {
+          margin-top: 0;
+        }
+        .small-screen {
+          display: none;
+        }
+      }
+      /* small screen */
+      @media (max-width: 100ex) {
+        td {
+          display: inline-block;
+          padding-bottom: 25px;
+        }
+        .big-screen {
+          display: none;
+        }
+        #passwordCell {
+          border-bottom: 1px solid black;
+          border-right: none;
+          width: auto;
+        }
+      }
+    </style>
 
     <style id="styleblock">
       #dots::before {
@@ -15,17 +63,20 @@
     <title></title>
   </head>
   <body class="container" style="display:none">
+    <div>
+      <!-- need this because addons don't get direct clipboard access anymore -->
+      <input id="invisiblePassword" type="text" style="border:none; position:absolute; left:0; top:0; width:0; z-index:-1"/>
+    </div>
+
     <div id="warnings"></div>
 
-    <div class="btn" style="font-size:x-large; float:right"><a id="viewSaved"></a></div>
-
-    <table style="clear:both; margin-left:auto; margin-right:auto">
+    <table style="clear:both; margin-left:auto; margin-right:auto; margin-top:3em">
       <tr>
         <td id="passwordCell">
           <h2 id="passwordHeader"></h2>
 
           <div style="font-family:monospace; position:relative; width:inherit; word-wrap:break-word">
-            <div id="password" style="color:transparent; font-size:xx-large; padding:0.5em 1em 0.5em 1em; position:absolute; width:inherit"></div>
+            <div id="visiblePassword" style="color:transparent; font-size:xx-large; padding:0.5em 1em 0.5em 1em; position:absolute; width:inherit"></div>
             <div id="dots" style="font-size:xx-large; padding:0.5em 1em 0.5em 1em; width:inherit"></div>
           </div>
 
@@ -38,7 +89,7 @@
             <div style="display:flex; align-items:baseline">
               <h2 id="optionsHeader"></h2>
               <div style="flex-grow:1; padding-left:25px; text-align:right">
-                <a class="btn btn-default" href="" id="resetButton" role="button"></a>
+                <button class="btn btn-default" id="reset" type="button"></a>
               </div>
             </div>
 
@@ -74,7 +125,7 @@
               <label class="checkbox-inline">
                 <input id="symbols" name="symbols" style="float:none" type="checkbox"/>
                 <span id="symbolsLabel"></span>
-                <input id="oksymbols" class="form-control" name="oksymbols" oninput="document.getElementById('symbols').checked = true" style="display:inline; width:20ex" type="text" value="@#$%&amp;-+*!?/."/>
+                <input id="oksymbols" class="form-control" name="oksymbols" style="display:inline; width:20ex" type="text" value="@#$%&amp;-+*!?/."/>
               </label>
             </div>
 
@@ -96,5 +147,7 @@
         </td>
       </tr>
     </table>
+
+    <script src="generate.js"></script>
   </body>
 </html>

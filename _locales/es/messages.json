@@ -1,0 +1,53 @@
+{
+  "name": {
+    "message": "Generador de contraseñas Pasa"
+  },
+  "description": {
+    "message": "Añade un botón a la barra de hierramientas para generar contraseñas seguras."
+  },
+  "actionTitle": {
+    "message": "Generar contraseña"
+  },
+  "pageTitle": {
+    "message": "Generar contraseña"
+  },
+  "passwordHeader": {
+    "message": "Se ha copiado la siguiente contraseña nueva al portapapeles:"
+  },
+  "passwordWarning": {
+    "message": "Después de establecer tu contraseña en un sitio web, sal de él y entra otra vez para asegurar que Firefox haya guardado la contraseña. Si no está guardada en otro sitio, <strong>esta contraseña desaparecerá para siempre</strong> al cerrar esta página, recargar esta página, o generar una nueva contraseña en esta página."
+  },
+  "clipboardCopy": {
+    "message": "Copiar al portapapeles otra vez"
+  },
+  "optionsHeader": {
+    "message": "Opciones"
+  },
+  "reset": {
+    "message": "reinicia a los valores por defecte"
+  },
+  "minisculesLabel": {
+    "message": "Letras minúsculas"
+  },
+  "majisculesLabel": {
+    "message": "Letras mayúsculas"
+  },
+  "numbersLabel": {
+    "message": "Números"
+  },
+  "lookalikesLabel": {
+    "message": "Similares i/I/1, o/O/0"
+  },
+  "symbolsLabel": {
+    "message": "Símbolos:"
+  },
+  "lengthLabel": {
+    "message": "Longitud:"
+  },
+  "generate": {
+    "message": "Generar otra contraseña"
+  },
+  "rememberPasswords": {
+    "message": "Firefox actualmente no pide recordar contraseñas. <a href=\"javascript:void(0)\" id=\"enableRememberPasswords\">Hacer clic aquí para arreglar eso.</a>"
+  }
+}

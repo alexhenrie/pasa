@@ -1,6 +1,5 @@
 Pasa password generator
 =======================
-
 Pasa is a simple password generator plugin for Firefox. It adds a toolbar button
 that, when clicked, generates a random password. This will help you break the
 habit of using the same or similar passwords on different web sites.
@@ -13,17 +12,8 @@ All passwords are generated locally; there is no dependency on any external web
 service. Users are encouraged to save generated passwords in Firefox and back
 them up with Firefox Sync.
 
-Pasa also provides context menus on password fields to let you save and insert
-passwords even when the website would not normally allow you to do so.
-
 The word _pasa_ is Spanish. It can mean either _come in_ or _raisin_, depending
 on the context.
-
-Build
-=====
-1. https://developer.mozilla.org/en-US/Add-ons/SDK/Tools/jpm#Installation
-2. To debug, run `jpm -b /usr/bin/firefox run` from the pasa directory
-3. To publish, run `jpm xpi` from the pasa directory
 
 License
 =======

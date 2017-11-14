@@ -1,0 +1,53 @@
+{
+  "name": {
+    "message": "Generador de contrasenyes Pasa"
+  },
+  "description": {
+    "message": "Afegeix un botó a la barra d'eines per a generar contrasenyes segures."
+  },
+  "actionTitle": {
+    "message": "Genera contrasenya"
+  },
+  "pageTitle": {
+    "message": "Generar contrasenya"
+  },
+  "passwordHeader": {
+    "message": "S'ha copiat la contrasenya nova següent al porta-retalls:"
+  },
+  "passwordWarning": {
+    "message": "Després d'establir la vostra contrasenya en un lloc web, sortiu d'ell i entreu de nou per a assegurar que el Firefox hagi desat la contrasenya. Si no està desada en altre lloc, <strong>aquesta contrasenya desapareixerà per a sempre</strong> quan tanqueu aquesta pàgina, recarregeu aquesta pàgina, o genereu una contrasenya nova en aquesta pàgina."
+  },
+  "clipboardCopy": {
+    "message": "Copia al porta-retalls de nou"
+  },
+  "optionsHeader": {
+    "message": "Opcions"
+  },
+  "reset": {
+    "message": "reinicia als valors per defecte"
+  },
+  "minisculesLabel": {
+    "message": "Lletres minúscules"
+  },
+  "majisculesLabel": {
+    "message": "Lletres majúscules"
+  },
+  "numbersLabel": {
+    "message": "Nombres"
+  },
+  "lookalikesLabel": {
+    "message": "Semblants i/I/1, o/O/0"
+  },
+  "symbolsLabel": {
+    "message": "Símbols:"
+  },
+  "lengthLabel": {
+    "message": "Length:"
+  },
+  "generate": {
+    "message": "Genera una altra contrasenya"
+  },
+  "rememberPasswords": {
+    "message": "El Firefox actualment no demana recordar les contrasenyes. <a href=\"javascript:void(0)\" id=\"enableRememberPasswords\">Feu clic aquí per a arreglar això.</a>"
+  }
+}

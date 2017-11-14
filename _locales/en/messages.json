@@ -1,0 +1,53 @@
+{
+  "name": {
+    "message": "Pasa password generator"
+  },
+  "description": {
+    "message": "Adds a toolbar button to generate secure passwords."
+  },
+  "actionTitle": {
+    "message": "Generate password"
+  },
+  "pageTitle": {
+    "message": "Generate password"
+  },
+  "passwordHeader": {
+    "message": "The following new password has been copied to the clipboard:"
+  },
+  "passwordWarning": {
+    "message": "After setting your password for a website, sign out and sign back in to make sure that Firefox saved the password. If it is not saved anywhere else, then <strong>this password will be gone for good</strong> when you close this page, refresh this page, or generate a new password on this page."
+  },
+  "clipboardCopy": {
+    "message": "Copy to clipboard again"
+  },
+  "optionsHeader": {
+    "message": "Options"
+  },
+  "reset": {
+    "message": "reset to defaults"
+  },
+  "minisculesLabel": {
+    "message": "Lowercase letters"
+  },
+  "majisculesLabel": {
+    "message": "Uppercase letters"
+  },
+  "numbersLabel": {
+    "message": "Numbers"
+  },
+  "lookalikesLabel": {
+    "message": "Lookalikes i/I/1, o/O/0"
+  },
+  "symbolsLabel": {
+    "message": "Symbols:"
+  },
+  "lengthLabel": {
+    "message": "Length:"
+  },
+  "generate": {
+    "message": "Generate another password"
+  },
+  "rememberPasswords": {
+    "message": "Firefox does not currently ask to remember passwords. <a href=\"javascript:void(0)\" id=\"enableRememberPasswords\">Click here to fix that.</a>"
+  }
+}
