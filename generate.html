@@ -11,6 +11,9 @@
     <link href="bootstrap.min.css" rel="stylesheet"/>
 
     <style>
+      h2 {
+        margin: 0;
+      }
       label {
         -moz-user-select: none;
       }
@@ -28,21 +31,20 @@
         width: 50ex;
       }
       /* big screen */
-      @media not all and (max-width: 100ex) {
+      @media not all and (max-width: 1000px) {
         body {
+          margin-top: 25px;
           padding-bottom: 25px;
-        }
-        h2 {
-          margin-top: 0;
         }
         .small-screen {
           display: none;
         }
       }
       /* small screen */
-      @media (max-width: 100ex) {
+      @media (max-width: 1000px) {
         td {
           display: inline-block;
+          padding-top: 25px;
           padding-bottom: 25px;
         }
         .big-screen {
@@ -72,7 +74,7 @@
 
     <div id="warnings"></div>
 
-    <table style="clear:both; margin-left:auto; margin-right:auto; margin-top:3em">
+    <table style="clear:both; margin-left:auto; margin-right:auto">
       <tr>
         <td id="passwordCell">
           <h2 id="passwordHeader"></h2>
