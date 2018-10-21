@@ -4,7 +4,7 @@ var defaultOptions = {
   miniscules: true,
   majiscules: true,
   numbers: true,
-  lookalikes: true,
+  lookalikes: false,
   symbols: false,
   oksymbols: '@#$%&-+*!?/.',
   length: 10,
