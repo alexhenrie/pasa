@@ -85,7 +85,7 @@ function generatePassword() {
     if (options.numbers)
       charPool += numberPool;
     if (!options.lookalikes)
-      charPool = charPool.replace(/[iI1oO0]/g, "");
+      charPool = charPool.replace(/[Il1O0]/g, "");
     if (options.symbols)
       charPool += symbolPool;
 
